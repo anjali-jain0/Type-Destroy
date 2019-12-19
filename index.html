@@ -1,124 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
 <head>
 	<title>Knowledge Test</title>
-  <link href='style.css' rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
 </head>
-
 <body>
-	<canvas width="100%" height="100%" id="canvas1"></canvas>
+	
+  <canvas id="canvas"> </canvas>
+
 </body>
-<script>
-	var c=document.getElementById("canvas1");
-	var ctx=c.getContext("2d");
-	c.height=window.innerHeight*0.98;
-	c.width=window.innerWidth*0.996;
-
-  var k=["#DB291D","#FAB301","#F85F68","lightgrey","#4FAA6D","orange","green","#58A8C9","#CDD6D5","#ECD2A2","white"];
-  var theme=["google","youtube","hike","fb","eyes","smile","anjali","jain"];
-
-  function Balloon(x,y,r,color,dy,text)
-  { 
-    this.x=x;
-    this.y=y;
-    this.r=r;
-    this.color=color;
-    this.dy=dy;
-    this.text=text;
-    this.draw=function()
-    {
-      ctx.beginPath();
-      ctx.arc(this.x,this.y,this.r,0,2*Math.PI);
-      ctx.fillStyle=this.color;
-      ctx.fill();
-      ctx.stroke();
-      ctx.font="15px Arial";
-      ctx.fillStyle="black";
-      ctx.fillText(this.text,this.x-25,this.y+3);
-    }
-    this.update=function()
-    {
-      this.y+=this.dy;
-    }
-    this.line=function()
-    {
-      console.log(123)
-      ctx.beginPath();
-      ctx.strokeStyle="black";
-      ctx.moveTo(c.width/2-20,c.height-25);
-      ctx.lineTo(this.x,this.y);
-      ctx.stroke();
-    }
-  }
-
-
-  var array=[];var y=-10;var l=0;
-  for(var i=0;i<8;i++)
-  {
-    var x=Math.random()*(c.width-60)+30;
-    y-=60;
-    var r=30;
-    var dy=1;
-    var color=k[Math.floor(Math.random()*(k.length-1))];
-    var text=theme[l];
-    l++;
-    array.push(new Balloon(x,y,r,color,dy,text));
-  }
- 
-	function animate()
-	{
-		requestAnimationFrame(animate);
-    ctx.clearRect(0,0,innerWidth,innerHeight);
-    ctx.font="18px Arial";
-    ctx.fillText("SCORE:",10,20);
-    ctx.fillText(s,90,20);
-    ctx.beginPath();
-    ctx.fillStyle="#566573";
-    ctx.fillRect(c.width/2-20,c.height-25,25,25);
-    ctx.fill();
-    for(var m=0;m<array.length;m++)
-    {
-      array[m].draw();
-    }
-    for(var p=0;p<array.length;p++)
-    {
-      array[p].update();
-      if(array[p].y>=c.height)
-      {
-        if(array[p].r>0)
-        {
-        alert("Game over!!");
-      }}
-    }
-  }
-
-   var h=0;var ct=8;var len=0;var s=0;
-
-   window.addEventListener("keyup",
-    function(event)
-    {
-      var char = String.fromCharCode(event.keyCode).toLowerCase();
-      if(ct==8)
-      {
-      for(var g=0;g<array.length;g++)
-      {
-       if(array[g].y>=0 && array[g].text.substring(0,1)===char)
-       {h=g; len=array[h].text.length;break;}
-      }}
-  if (array[h].text.substring(0, 1) === char)
-  {
-    var word=array[h].text.substring(0,1);
-    array[h].text=(array[h].text).replace(word,"");
-    array[h].line();
-    ct--;
-    if(array[h].text.length==0)
-     { ct+=len;array[h].r=0;array[h].y=0;s++; }
- }
-    });
-  
-
-   animate();
-  
-</script>
+<script src="./index.js"></script>
 </html>
